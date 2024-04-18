@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>make_recipe</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <style>
+        <!-- td {
+        padding: 10px;
+        }
+        -->
+        .container
+        {
+        margin-top:
+        50px;
+        }
+        form
+        {
+        padding:
+        20px;
+        border:
+        1px
+        solid
+        #ccc;
+        border-radius:
+        10px;
+        box-shadow:
+        0px
+        0px
+        10px
+        0px
+        rgba(0,
+        0,
+        0,
+        0.1);
+        }
+        .table-container
+        {
+        margin-top:
+        20px;
+        }
+        .table-container
+        table
+        {
+        width:
+        100%;
+        border-collapse:
+        collapse;
+        }
+        .table-container
+        th,
+        .table-container
+        td
+        {
+        padding:
+        10px;
+        border:
+        1px
+        solid
+        #ccc;
+        }
+        .table-container
+        th
+        {
+        background-color:
+        #f2f2f2;
+        }
+        .btn-group
+        {
+        margin-top:
+        10px;
+        }
+        .btn-group
+        a
+        {
+        margin-right:
+        10px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/recipes/logout/">Logout</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+    <div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert"
+            style="background-color:green;color:white;">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="container"">
+        <form method=" POST" action="/recipes/" style="padding: 20px;">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Recipe name:</label>
+            <input type="text" class="form-control" id="name" name="name">
+        </div>
+        <div class="form-group">
+            <label for="des">Description:</label>
+            <textarea class="form-control" id="des" name="description">
+
+                </textarea>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="type" id="veg" value="veg" checked>
+            <label class="form-check-label" for="veg">
+                vegetarian
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="type" id="non_veg" value="non_veg">
+            <label class="form-check-label" for="non_veg">
+                non vegetarian
+            </label>
+        </div><br>
+        <button type="submit" class="btn btn-success">Create Recipe</button>
+        </form>
+    </div>
+    <br>
+    <div class="container">
+        <form class="form-inline" method="Post" action="/recipes/search-recipe/">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="search" placeholder="Search your recipe" name="searched"
+                id="searched" aria-label="Search">
+            <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+
+    <br>
+    <h2 class="container">{% if searched%}SEARCH RESULTS {%else%}YOUR RECIPES{%endif%}</h2>
+    <table border=1 class="container" {% if searched%}style="visibility: hidden;" {%endif%}>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Action</th>
+        </tr>
+        {% for d in data %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{d.name}}</td>
+            <td>{{d.description}}</td>
+            <td>{{d.type}}</td>
+            <td><a href="update-recipe/{{d.id}}/" class="btn btn-success my-2">Update</a>
+                <a href="delete-recipe/{{d.id}}/" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% if searched%}
+    <table border=1 class="container">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Action</th>
+        </tr>
+        {% for s in searched %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{s.name}}</td>
+            <td>{{s.description}}</td>
+            <td>{{s.type}}</td>
+            <td><a href="update-recipe/{{s.id}}/" class="btn btn-success my-2">Update</a>
+                <a href="delete-recipe/{{s.id}}/" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {%endif%}
+
+    <br>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

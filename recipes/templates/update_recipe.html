@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>make_recipe</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <style>
+        td {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert"
+            style="background-color:green;color:white;">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="container" style="margin-top:5%;border:1px solid">
+        <form method="post" action="/recipes/update-recipe/{{data.id}}/" style="padding: 20px;">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Recipe name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{data.name}}">
+            </div>
+            <div class="form-group">
+                <label for="des">Description:</label>
+                <textarea class="form-control" id="des" name="description">
+                    {{data.description}}
+                </textarea>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="type" id="veg" value="veg" {% if data.type == "veg" %} checked {% endif %}>
+                <label class="form-check-label" for="veg">
+                    vegetarian
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="type" id="non_veg" value="non_veg" {% if data.type == "non_veg" %} checked {% endif %}>
+                <label class="form-check-label" for="non_veg">
+                    non vegetarian
+                </label>
+            </div><br>
+            <button type="submit" class="btn btn-success">Update Recipe</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
