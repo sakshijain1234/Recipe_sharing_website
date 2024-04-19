@@ -84,7 +84,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/recipes/logout/">Logout</a>
+        <a class="navbar-brand" href="/logout/">Logout</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -104,8 +104,8 @@
         {% endif %}
     </div>
 
-    <div class="container"">
-        <form method=" POST" action="/recipes/" style="padding: 20px;">
+    <div class="container">
+        <form method="POST" action="/add-recipe/" style="padding: 20px;">
         {% csrf_token %}
         <div class="form-group">
             <label for="name">Recipe name:</label>
@@ -134,14 +134,13 @@
     </div>
     <br>
     <div class="container">
-        <form class="form-inline" method="Post" action="/recipes/search-recipe/">
+        <form class="form-inline" method="Post" action="/search-recipe/">
             {% csrf_token %}
             <input class="form-control mr-sm-2" type="search" placeholder="Search your recipe" name="searched"
                 id="searched" aria-label="Search">
             <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
-
     <br>
     <h2 class="container">{% if searched%}SEARCH RESULTS {%else%}YOUR RECIPES{%endif%}</h2>
     <table border=1 class="container" {% if searched%}style="visibility: hidden;" {%endif%}>
@@ -158,8 +157,8 @@
             <td>{{d.name}}</td>
             <td>{{d.description}}</td>
             <td>{{d.type}}</td>
-            <td><a href="update-recipe/{{d.id}}/" class="btn btn-success my-2">Update</a>
-                <a href="delete-recipe/{{d.id}}/" class="btn btn-danger">Delete</a>
+            <td><a href="/update-recipe/{{d.id}}/" class="btn btn-success my-2">Update</a>
+                <a href="/delete-recipe/{{d.id}}/" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         {% endfor %}
@@ -179,13 +178,13 @@
             <td>{{s.name}}</td>
             <td>{{s.description}}</td>
             <td>{{s.type}}</td>
-            <td><a href="update-recipe/{{s.id}}/" class="btn btn-success my-2">Update</a>
-                <a href="delete-recipe/{{s.id}}/" class="btn btn-danger">Delete</a>
+            <td><a href="/update-recipe/{{s.id}}/" class="btn btn-success my-2">Update</a>
+                <a href="/delete-recipe/{{s.id}}/" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         {% endfor %}
     </table>
-
+        <a href="/add-recipe/" class="btn btn-success my-2" style="display:flex;justify-content:center;">See all</a>
     {%endif%}
 
     <br>

@@ -53,7 +53,7 @@
         {% endif %}
     </div>
     <div class="container mx-30">
-        <form method="POST" action="/recipes/signup/">
+        <form method="POST" action="/signup/">
             {%csrf_token%}
             <div class="form-group">
                 <label for="exampleInputname">Name</label>
@@ -75,7 +75,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Register</button>
         </form><br>
-        <p>Already have an account <a href="/recipes/login/">Signin</a></p>
+        <p>Already have an account <a href="/login/">Signin</a></p>
     </div>
 
 

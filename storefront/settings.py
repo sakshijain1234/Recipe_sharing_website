@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'playground.apps.PlaygroundConfig',
     'recipes.apps.RecipesConfig',
     'django.contrib.admin',
     'django.contrib.auth',

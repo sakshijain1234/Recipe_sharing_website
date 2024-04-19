@@ -107,7 +107,7 @@
         {% endif %}
     </div>
     <div class="container">
-        <form method="POST" action="/recipes/login/">
+        <form method="POST" action="/login/">
             {%csrf_token%}
             <div class="form-group">
                 <label for="username">Username</label>
@@ -127,7 +127,7 @@
             <button type="submit" class="btn btn-primary">login</button>
         </form>
         <br>
-        <p>don't have an account <a href="/recipes/signup">Register</a></p>
+        <p>don't have an account <a href="/signup/">Register</a></p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"

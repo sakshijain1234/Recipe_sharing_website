@@ -23,6 +23,7 @@ admin.site.index_title="Sakshi Admin index title"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('recipes/',include('recipes.urls'))
+    # path('recipes/',include('recipes.urls'))
+    path('',include('recipes.urls'))
     
 ]
